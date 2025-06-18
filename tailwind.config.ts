@@ -66,6 +66,8 @@ export default {
         "gaming-neon-pink": "hsl(var(--gaming-neon-pink))",
         "gaming-neon-purple": "hsl(var(--gaming-neon-purple))",
         "gaming-neon-blue": "hsl(var(--gaming-neon-blue))",
+        "gaming-neon-cyan": "hsl(var(--gaming-neon-cyan))",
+        "gaming-neon-orange": "hsl(var(--gaming-neon-orange))",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -85,6 +87,24 @@ export default {
           "0%, 100%": { opacity: "1" },
           "50%": { opacity: "0.5" },
         },
+        "matrix-rain": {
+          "0%": { transform: "translateY(-100vh)" },
+          "100%": { transform: "translateY(100vh)" },
+        },
+        "cyber-glitch": {
+          "0%, 14%, 15%, 49%, 50%, 99%, 100%": {
+            transform: "translate(0)",
+            filter: "hue-rotate(0deg)",
+          },
+          "15%, 49%": {
+            transform: "translate(-2px, 2px)",
+            filter: "hue-rotate(90deg)",
+          },
+        },
+        "hologram-flicker": {
+          "0%, 100%": { opacity: "1", filter: "brightness(1)" },
+          "50%": { opacity: "0.8", filter: "brightness(1.2) saturate(1.5)" },
+        },
         float: {
           "0%, 100%": { transform: "translateY(0px)" },
           "50%": { transform: "translateY(-10px)" },
@@ -99,6 +119,9 @@ export default {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "neon-pulse": "neon-pulse 2s ease-in-out infinite",
+        "matrix-rain": "matrix-rain 3s linear infinite",
+        "cyber-glitch": "cyber-glitch 4s ease-in-out infinite",
+        "hologram-flicker": "hologram-flicker 2s ease-in-out infinite",
         float: "float 3s ease-in-out infinite",
         "cart-bounce": "cartBounce 0.6s ease-in-out",
         "product-hover": "transform 0.3s ease-in-out",
@@ -108,6 +131,11 @@ export default {
         "neon-green": "0 0 20px hsl(var(--gaming-neon-green) / 0.5)",
         "neon-purple": "0 0 20px hsl(var(--gaming-neon-purple) / 0.5)",
         "neon-pink": "0 0 20px hsl(var(--gaming-neon-pink) / 0.5)",
+        "neon-cyan": "0 0 20px hsl(var(--gaming-neon-cyan) / 0.5)",
+        "cyber-glow":
+          "0 0 30px rgba(0, 255, 255, 0.4), inset 0 0 30px rgba(0, 255, 255, 0.1)",
+        hologram:
+          "0 0 20px rgba(0, 255, 255, 0.3), 0 0 40px rgba(255, 0, 255, 0.2)",
       },
     },
   },

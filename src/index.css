@@ -44,6 +44,8 @@
     --gaming-neon-pink: 328 100% 54%;
     --gaming-neon-purple: 258 90% 66%;
     --gaming-neon-blue: 201 100% 50%;
+    --gaming-neon-cyan: 180 100% 50%;
+    --gaming-neon-orange: 28 100% 60%;
   }
 
   .dark {
@@ -51,142 +53,326 @@
     --foreground: var(--gaming-text);
     --card: var(--gaming-bg-secondary);
     --card-foreground: var(--gaming-text);
-    --popover: var(--gaming-bg-secondary);
-    --popover-foreground: var(--gaming-text);
-    --primary: var(--gaming-neon-green);
-    --primary-foreground: var(--gaming-bg);
-    --secondary: var(--gaming-bg-secondary);
-    --secondary-foreground: var(--gaming-text);
-    --muted: var(--gaming-bg-secondary);
-    --muted-foreground: var(--gaming-text-muted);
-    --accent: var(--gaming-neon-purple);
-    --accent-foreground: var(--gaming-text);
-    --destructive: var(--gaming-neon-pink);
-    --destructive-foreground: var(--gaming-text);
-    --border: hsl(215 15% 20%);
-    --input: hsl(215 15% 20%);
-    --ring: var(--gaming-neon-green);
-    --sidebar-background: var(--gaming-bg);
-    --sidebar-foreground: var(--gaming-text);
-    --sidebar-primary: var(--gaming-neon-green);
-    --sidebar-primary-foreground: var(--gaming-bg);
-    --sidebar-accent: var(--gaming-bg-secondary);
-    --sidebar-accent-foreground: var(--gaming-text);
-    --sidebar-border: hsl(215 15% 20%);
-    --sidebar-ring: var(--gaming-neon-green);
+    --border: var(--gaming-neon-green);
   }
-}
 
-@layer base {
   * {
-    @apply border-border;
+    border-color: hsl(var(--border));
   }
 
   body {
-    @apply bg-background text-foreground;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
     font-family: "Rajdhani", sans-serif;
+    overflow-x: hidden;
   }
 
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+      radial-gradient(
+        ellipse at 25% 25%,
+        rgba(0, 255, 255, 0.05) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        ellipse at 75% 75%,
+        rgba(255, 0, 255, 0.05) 0%,
+        transparent 50%
+      ),
+      linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(20, 20, 40, 0.9) 100%);
+    pointer-events: none;
+    z-index: -1;
+  }
+}
+
+@layer components {
+  /* Gaming UI Components */
   .gaming-title {
     font-family: "Orbitron", monospace;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
   }
 
   .neon-glow {
     text-shadow:
       0 0 5px currentColor,
       0 0 10px currentColor,
-      0 0 15px currentColor;
+      0 0 15px currentColor,
+      0 0 20px currentColor;
   }
 
-  .neon-border {
-    box-shadow:
-      0 0 10px currentColor,
-      inset 0 0 10px currentColor;
-  }
-
-  .gaming-gradient {
+  .gaming-card {
     background: linear-gradient(
-      135deg,
-      hsl(var(--gaming-neon-green)) 0%,
-      hsl(var(--gaming-neon-blue)) 50%,
-      hsl(var(--gaming-neon-purple)) 100%
+      145deg,
+      rgba(20, 20, 40, 0.8),
+      rgba(10, 10, 20, 0.9)
+    );
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 1.5rem;
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .gaming-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(0, 255, 255, 0.5),
+      transparent
     );
   }
-}
 
-@layer components {
-  .gaming-card {
-    @apply bg-gray-800/30 backdrop-blur-sm border border-gray-700/50 rounded-xl p-6 transition-all duration-300 hover:border-gaming-neon-green/30 hover:bg-gray-800/50;
+  .gaming-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(0, 255, 255, 0.8), transparent);
   }
 
   .gaming-button {
-    @apply bg-gradient-to-r from-gaming-neon-green to-gaming-neon-blue text-black font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-gaming-neon-green/25 hover:scale-105;
+    background: linear-gradient(
+      145deg,
+      rgba(0, 255, 255, 0.2),
+      rgba(255, 0, 255, 0.2)
+    );
+    border: 1px solid rgba(0, 255, 255, 0.4);
+    color: white;
+    font-family: "Orbitron", monospace;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
   }
 
-  /* E-commerce specific styles */
-  .product-card-hover {
-    @apply transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-gaming-neon-green/20;
+  .gaming-button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    transition: left 0.5s ease;
   }
 
-  .price-tag {
-    @apply text-gaming-neon-green font-bold;
+  .gaming-button:hover::before {
+    left: 100%;
   }
 
-  .sale-badge {
-    @apply bg-gaming-neon-pink text-white px-2 py-1 rounded-full text-xs font-bold;
+  .gaming-button:hover {
+    box-shadow:
+      0 0 20px rgba(0, 255, 255, 0.5),
+      inset 0 0 20px rgba(0, 255, 255, 0.1);
+    border-color: rgba(0, 255, 255, 0.8);
   }
 
-  .cart-bounce {
-    animation: cartBounce 0.6s ease-in-out;
+  /* HUD Elements */
+  .hud-status-bar {
+    background: linear-gradient(
+      90deg,
+      rgba(0, 255, 255, 0.8),
+      rgba(0, 255, 255, 0.2)
+    );
+    height: 4px;
+    border-radius: 2px;
+    animation: pulse 2s infinite;
   }
 
-  @keyframes cartBounce {
+  .hud-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #00ffff;
+    box-shadow: 0 0 10px #00ffff;
+    animation: neon-pulse 1.5s ease-in-out infinite;
+  }
+
+  .hud-panel {
+    background: rgba(0, 20, 40, 0.9);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    border-left: 3px solid #00ffff;
+    backdrop-filter: blur(15px);
+  }
+
+  /* Holographic Effects */
+  .holographic-card {
+    background: linear-gradient(
+      145deg,
+      rgba(0, 255, 255, 0.05) 0%,
+      rgba(255, 0, 255, 0.05) 50%,
+      rgba(0, 255, 0, 0.05) 100%
+    );
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .holographic-card::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      45deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.1) 50%,
+      transparent 70%
+    );
+    animation: hologram-scan 3s linear infinite;
+  }
+
+  @keyframes hologram-scan {
+    0% {
+      transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    }
+    100% {
+      transform: translateX(100%) translateY(100%) rotate(45deg);
+    }
+  }
+
+  /* Glitch Effects */
+  .glitch-text {
+    position: relative;
+    color: #00ffff;
+  }
+
+  .glitch-text::before,
+  .glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .glitch-text::before {
+    animation: glitch-1 2s linear infinite;
+    color: #ff00ff;
+    z-index: -1;
+  }
+
+  .glitch-text::after {
+    animation: glitch-2 3s linear infinite;
+    color: #ffff00;
+    z-index: -2;
+  }
+
+  @keyframes glitch-1 {
+    0%,
+    14%,
+    15%,
+    49%,
+    50%,
+    99%,
+    100% {
+      transform: translate(0);
+    }
+    15%,
+    49% {
+      transform: translate(-2px, 2px);
+    }
+  }
+
+  @keyframes glitch-2 {
     0%,
     20%,
-    50%,
-    80%,
+    21%,
+    62%,
+    63%,
+    99%,
     100% {
-      transform: translateY(0);
+      transform: translate(0);
     }
-    40% {
-      transform: translateY(-10px);
-    }
-    60% {
-      transform: translateY(-5px);
+    21%,
+    62% {
+      transform: translate(2px, -2px);
     }
   }
 
-  .search-glow {
-    @apply focus:shadow-lg focus:shadow-gaming-neon-green/25;
+  /* Loading Animations */
+  .cyber-loading {
+    position: relative;
+    height: 4px;
+    background: rgba(0, 255, 255, 0.2);
+    overflow: hidden;
   }
 
-  .category-hover {
-    @apply transition-all duration-200 hover:bg-gaming-neon-green/10 hover:text-gaming-neon-green hover:pl-4;
-  }
-}
-
-@layer utilities {
-  .text-gaming-neon-green {
-    color: hsl(var(--gaming-neon-green));
-  }
-
-  .text-gaming-neon-pink {
-    color: hsl(var(--gaming-neon-pink));
+  .cyber-loading::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 30%;
+    background: linear-gradient(90deg, transparent, #00ffff, transparent);
+    animation: cyber-scan 2s linear infinite;
   }
 
-  .text-gaming-neon-purple {
-    color: hsl(var(--gaming-neon-purple));
+  @keyframes cyber-scan {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(400%);
+    }
   }
 
-  .text-gaming-neon-blue {
-    color: hsl(var(--gaming-neon-blue));
+  /* Product Card Effects */
+  .product-card-hover {
+    transition: all 0.3s ease;
+    transform-style: preserve-3d;
   }
 
-  .border-gaming-neon-green {
-    border-color: hsl(var(--gaming-neon-green));
+  .product-card-hover:hover {
+    transform: translateY(-10px) rotateX(5deg);
+    box-shadow:
+      0 20px 40px rgba(0, 255, 255, 0.2),
+      0 0 20px rgba(255, 0, 255, 0.1);
   }
 
-  .bg-gaming-neon-green {
-    background-color: hsl(var(--gaming-neon-green));
+  /* Scrollbar Styling */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #00ffff, #ff00ff);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #ff00ff, #00ffff);
   }
 }
