@@ -1,13 +1,13 @@
-import HeroSection from "@/components/HeroSection";
-import AboutSection from "@/components/AboutSection";
-import ContactSection from "@/components/ContactSection";
+import HeaderSection from "@/components/HeaderSection";
+import ProductCatalogSection from "@/components/ProductCatalogSection";
+import FooterSection from "@/components/FooterSection";
 
 const Index = () => {
   return (
     <div className="dark">
-      <HeroSection />
-      <AboutSection />
-      <ContactSection />
+      <HeaderSection />
+      <ProductCatalogSection />
+      <FooterSection />
     </div>
   );
 };
